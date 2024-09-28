@@ -25,3 +25,75 @@ body {
     text-wrap: balance;
   }
 }
+@keyframes upAndDownMove {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+
+
+.animate-up-and-down {
+  animation: upAndDownMove 2s infinite ease-in-out, fastFade 1.5s infinite alternate;
+}
+
+/* In your global CSS or a relevant file */
+/* In your global CSS or a relevant file */
+@layer utilities {
+  .glow-yellow-500 {
+    box-shadow: 
+      0 0 15px rgba(255, 255, 0, 0.8), 
+      0 0 25px rgba(255, 255, 0, 0.7), 
+      0 0 35px rgba(255, 255, 0, 0.5);
+  }
+}
+
+/* Add this to your CSS file or a <style> tag */
+
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none; /* Override default CSS styles */
+  width: 100%; /* Full-width */
+  height: 8px; /* Track height */
+  background: #ddd; /* Track color */
+  border-radius: 5px; /* Rounded corners */
+  outline: none; /* No outline on focus */
+  opacity: 0.7; /* Transparent */
+  transition: opacity 0.2s; /* Transition for opacity */
+}
+
+.slider:hover {
+  opacity: 1; /* Fully opaque on hover */
+}
+
+/* Thumb styles */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none; /* Override default CSS styles */
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  border-radius: 50%; /* Circular thumb */
+  background: #4A90E2; /* Thumb color */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for color change */
+}
+
+.slider::-moz-range-thumb {
+  width: 20px; /* Thumb width */
+  height: 20px; /* Thumb height */
+  border-radius: 50%; /* Circular thumb */
+  background: #4A90E2; /* Thumb color */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth transition for color change */
+}
+
+.slider::-webkit-slider-thumb:hover,
+.slider::-moz-range-thumb:hover {
+  background: #007BFF; /* Change thumb color on hover */
+}
+
+
+
+
+
+
