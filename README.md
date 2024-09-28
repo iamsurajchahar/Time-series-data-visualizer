@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Time Series Data Visualizer
 
-## Getting Started
+## Project Overview
 
-First, run the development server:
+The **Time Series Data Visualizer** is a desktop application built using **Next.js** and **Tauri** that allows users to visualize time series data from CSV files. This tool is specifically designed for handling large datasets, like analog signal data sampled at high frequencies (e.g., 4 MHz), making it ideal for use cases involving millions of data points.
 
+The application supports interactive exploration of the data with dynamic granularity selection, sliders for navigating through the time series, and an animated chart rendering experience.
+
+## Features
+
+- **File Upload**: Upload large CSV files containing time series data.
+- **Time Series Visualization**: View the data over a user-selected time range.
+- **Dynamic Granularity**: Adjust the level of detail displayed on the graph.
+- **Light/Dark Mode**: Switch between light and dark themes.
+- **Smooth Animations**: Animated transitions, loading indicators, and data rendering.
+- **Cross-Platform Compatibility**: The app works on Windows, macOS, and Linux, powered by Tauri.
+  
+## Technologies Used
+
+- **Frontend**: Next.js, React.js
+- **Backend**: Tauri
+- **Visualization**: Chart.js, React-Chartjs-2
+- **CSV Parsing**: PapaParse
+- **Styling**: Tailwind CSS, ShadCN UI components
+- **Package Management**: NPM
+- **Language**: TypeScript
+
+## Installation and Setup
+
+### 1. Clone the Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+git clone https://github.com/your-username/time-series-visualizer.git
+cd time-series-visualizer
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Install Dependencies
+Make sure to install all dependencies for both the web application and Tauri:
+npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Tauri Setup
+Ensure Tauri is properly configured for your platform. Refer to Tauri Setup for any additional setup needed.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Development Server
+To run the development environment, you can use the following command:
+npm run tauri dev
 
-## Learn More
+Building the Project
+To build the project for production:
+npm run build
+npm run tauri build
 
-To learn more about Next.js, take a look at the following resources:
+File Structure
+|-- .next
+|-- node_modules
+|-- src                # Next.js application source code
+|   |-- components     # React components for the application
+|   |-- pages          # Pages served by Next.js
+|-- src-tauri          # Tauri configuration and Rust-based backend code
+|-- .eslintrc.json     # ESLint configuration
+|-- package.json       # NPM scripts and dependencies
+|-- tailwind.config.js # Tailwind CSS configuration
+|-- tsconfig.json      # TypeScript configuration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Future Enhancements
+Data Export: Add functionality to export filtered or modified data.
+Additional Chart Types: Implement other visualization types like scatter plots or histograms.
+Performance Optimizations: Further improve performance for extremely large datasets.
+Issues and Troubleshooting
+If the app doesn’t start on http://localhost:1420/, ensure the frontend server is running and try restarting the Tauri application.
+For performance issues with large datasets, ensure that you're parsing the CSV in chunks and efficiently rendering only the visible data on the chart.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Contributing
+Contributions are welcome! Please submit a pull request or open an issue on GitHub if you have suggestions or improvements.
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
