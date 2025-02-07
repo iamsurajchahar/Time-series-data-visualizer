@@ -2,7 +2,7 @@
 import { ChartOptions,TooltipItem } from 'chart.js';
 
 import Slider from '../component/slider';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams } from 'next/navigation'; 
 import { Line } from 'react-chartjs-2';
 import {
@@ -41,57 +41,49 @@ export default function ChartPage() {
   };
   
 
-  const updateVisibleData = (granularity: number, sliderValue: number) => {
-    const totalDuration = 10; 
-    const totalSamples = parsedData.length; 
-    
-   
-    const numSamplesToDisplay = Math.floor((totalDuration * 1000) / granularity);
-    
-   
-    console.log("Granularity (ms):", granularity);
-    console.log("Num Samples to Display:", numSamplesToDisplay);
-    
-   
-    const adjustedSliderValue = Math.min(sliderValue, totalDuration);
-    
-    
-    const startIndex = Math.floor((adjustedSliderValue / totalDuration) * totalSamples);
-    const adjustedStartIndex = Math.max(startIndex, 0); 
-    
-    
-    const endIndex = Math.min(adjustedStartIndex + numSamplesToDisplay, totalSamples);
-    
-    
-    console.log("Total Samples:", totalSamples);
-    console.log("Start Index:", adjustedStartIndex);
-    console.log("End Index:", endIndex);
-    
-    
-    if (adjustedStartIndex < endIndex) {
-      const filteredData = parsedData.slice(adjustedStartIndex, endIndex);
-      
-      
-      console.log("Filtered Data:", filteredData);
-      
-      
-      if (filteredData.length > 0) {
-        setVisibleData(filteredData);
+  const updateVisibleData = useCallback(
+    (granularity: number, sliderValue: number) => {
+      const totalDuration = 10;
+      const totalSamples = parsedData.length;
+  
+      const numSamplesToDisplay = Math.floor((totalDuration * 1000) / granularity);
+  
+      console.log("Granularity (ms):", granularity);
+      console.log("Num Samples to Display:", numSamplesToDisplay);
+  
+      const adjustedSliderValue = Math.min(sliderValue, totalDuration);
+      const startIndex = Math.floor((adjustedSliderValue / totalDuration) * totalSamples);
+      const adjustedStartIndex = Math.max(startIndex, 0);
+  
+      const endIndex = Math.min(adjustedStartIndex + numSamplesToDisplay, totalSamples);
+  
+      console.log("Total Samples:", totalSamples);
+      console.log("Start Index:", adjustedStartIndex);
+      console.log("End Index:", endIndex);
+  
+      if (adjustedStartIndex < endIndex) {
+        const filteredData = parsedData.slice(adjustedStartIndex, endIndex);
+        console.log("Filtered Data:", filteredData);
+  
+        if (filteredData.length > 0) {
+          setVisibleData(filteredData);
+        } else {
+          console.warn("No data to display for the selected range.");
+          setVisibleData([]);
+        }
       } else {
         console.warn("No data to display for the selected range.");
-        setVisibleData([]); 
+        setVisibleData([]);
       }
-    } else {
-      console.warn("No data to display for the selected range.");
-      setVisibleData([]); 
-    }
-  };
+    },
+    [parsedData, setVisibleData] // Add dependencies here
+  );  
   
   
 
   useEffect(() => {
     updateVisibleData(debouncedGranularity, sliderValue); 
-  }, [debouncedGranularity, sliderValue]);
+  }, [debouncedGranularity, sliderValue,updateVisibleData]);
 
   const chartData = {
     labels: visibleData.map((_, index) => {

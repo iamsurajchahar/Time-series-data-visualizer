@@ -51,8 +51,10 @@ export default function HomePage() {
             alert("Failed to parse the CSV file. Please check the format.");
           },
         });
+        
+        console.log(results);
+        
       }
-  
       
       readNextChunk();
     };
@@ -65,6 +67,7 @@ export default function HomePage() {
   
     readNextChunk();
   };
+  
 
   const handleNavigateToChart = () => {
     if (parsedData.length > 0) {
